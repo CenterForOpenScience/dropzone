@@ -847,6 +847,13 @@
       }
       this.emit("drop", e);
       files = e.dataTransfer.files;
+
+      // Patch to catch silently passing fail to upload folders for Windows Firefox and IE
+      if(files.length === 0){
+        this.emit("error", "None", "Cannot upload directories, applications, or packages");
+        return;
+      }
+
       if (files.length) {
         items = e.dataTransfer.items;
         if (items && items.length && (items[0].webkitGetAsEntry != null)) {
