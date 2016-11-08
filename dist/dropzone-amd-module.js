@@ -882,6 +882,10 @@
       }
       this.emit("drop", e);
       files = e.dataTransfer.files;
+      if (files.length === 0) {
+        this.emit('error', 'None', 'Cannot upload directories, applications, or packages');
+        return;
+      }
       this.emit("addedfiles", files);
       if (files.length) {
         items = e.dataTransfer.items;
